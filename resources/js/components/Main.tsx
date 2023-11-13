@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import "../../css/app.css";
+import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 
 function App() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const { handleAuth } = useServiceAuthContext();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -19,18 +22,10 @@ function App() {
     }));
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = useCallback(async (e: any) => {
     e.preventDefault();
-
-    // Simulating a successful login
-    console.log("Simulating login...");
-
-    // In a real-world scenario, you would make an API call here
-    // and handle the response accordingly.
-
-    // Simulate a successful response
-    console.log("Login successful");
-  };
+    await handleAuth(formData.email, formData.password);
+  }, [formData]);
 
   return (
     <div className="App">
@@ -62,7 +57,7 @@ function App() {
             >
               LOGIN
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleLogin}>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -92,7 +87,7 @@ function App() {
                 }}
               />
               <Button
-                type="submit"
+                onClick={handleLogin}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, borderRadius: 20 }}

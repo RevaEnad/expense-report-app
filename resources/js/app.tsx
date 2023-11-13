@@ -2,13 +2,13 @@ import './bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import Main from './components/Main';
-import Homepage from './components/Homepage'
+import Routing from './Routing';
+import { AuthServiceContextProvider } from './hooks/context/AuthServiceContext';
 
 ReactDOM.createRoot(document.getElementById('app') as HTMLElement).render(
     <React.StrictMode>
-      <Main />
-      <Homepage />
+        <AuthServiceContextProvider>
+            <Routing />
+        </AuthServiceContextProvider>
     </React.StrictMode>
   );
