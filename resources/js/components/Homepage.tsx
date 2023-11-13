@@ -21,6 +21,7 @@ import {
   Table,
   Box,
 } from "@mui/material";
+import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 
 function createData(
   name: string,
@@ -84,6 +85,7 @@ function App() {
   });
   const [editIndex, setEditIndex] = useState(-1);
   const [rows, setRows] = useState(initialRows);
+  const { handleLogout } = useServiceAuthContext();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputValues((prevInputValues) => ({
@@ -146,17 +148,6 @@ function App() {
     });
   };
   const isEditModalOpen = editIndex !== -1;
-
-  const handleLogout = () => {
-    // Perform any logout logic you need
-    // For example, you might clear user authentication tokens or reset user data
-    // Then, redirect the user to the login page or perform any other necessary actions
-    console.log("Logging out...");
-
-    // For example, you can redirect the user to the login page
-    // Replace '/login' with the actual path of your login page
-    window.location.href = '/Main';
-  };
 
   return (
     <>
