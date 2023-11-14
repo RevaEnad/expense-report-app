@@ -93,6 +93,8 @@ function App() {
       [name]: value,
     }));
   };
+
+  
   const handleSave = () => {
     if (editIndex !== -1) {
       // Editing existing row
