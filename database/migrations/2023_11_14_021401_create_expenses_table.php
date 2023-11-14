@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('issuer');
             $table->date('date');
+            $table->enum('status', ['approved', 'pending', 'declined'])->default('pending');
             $table->float('amount');
             $table->timestamps();
             $table->softDeletes();

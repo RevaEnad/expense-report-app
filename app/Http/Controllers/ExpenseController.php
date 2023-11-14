@@ -18,9 +18,15 @@ class ExpenseController extends Controller
         return response()->json($expense);
     }
     
-    public function show(){}
+    public function show(Expense $expense){
+        return response()->json($expense);
+    }
+
+    public function update(Request $request, Expense $expense){
+        return response()->json($expense->update($request->all()));
+    }
     
-    public function update(){}
-    
-    public function destroy(){}
+    public function destroy(Expense $expense){
+        return response()->json($expense->delete());
+    }
 }
