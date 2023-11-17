@@ -1,7 +1,6 @@
 import TextField from "@mui/material/TextField";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Chip from "@mui/material/Chip";
 import EditIcon from "@mui/icons-material/Edit";
 import Header from "./Header";
 import "../../css/app.css";
@@ -20,6 +19,7 @@ import {
     TableBody,
     Table,
     Box,
+    Chip,
 } from "@mui/material";
 import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 import useExpenseState from "../hooks/states/useExpenseState";
@@ -296,9 +296,9 @@ function App() {
                                     <TableCell align="center">
                                         {row.date}
                                     </TableCell>
-                                    {/* <TableCell align="center">
+                                    <TableCell align="center">
                     <Chip label={row.status} color="success" />
-                  </TableCell> */}
+                  </TableCell>
                                     <TableCell align="center">
                                         {row.amount}
                                     </TableCell>
