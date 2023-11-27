@@ -1,5 +1,6 @@
 import React from "react";
-import { Modal, Box, Typography, TextField, Button } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface EditModalProps {
   open: boolean;
@@ -34,8 +35,18 @@ const EditModal = ({
           bgcolor: "#fff",
           boxShadow: 24,
           borderRadius: 4,
+          overflow: "auto",
+          maxHeight: "90vh",
         }}
       >
+        <IconButton
+          edge="end"
+          color="inherit"
+          onClick={onClose}
+          sx={{ position: 'absolute', top: 8, right: 8 }}
+        >
+          <CloseIcon />
+        </IconButton>
         <Typography
           variant="h6"
           component="div"
@@ -95,7 +106,10 @@ const EditModal = ({
           size="medium"
           color="primary"
           fullWidth
-          onClick={onSave}
+          onClick={() => {
+            onSave();
+            onClose(); // Close the modal after saving
+          }}
           sx={{ marginTop: 2 }}
         >
           Update

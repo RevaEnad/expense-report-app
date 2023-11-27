@@ -1,4 +1,5 @@
 export interface IAuthServiceContext {
+    role: string|null;
     accessToken: string | null;
     loading: boolean;
     isLoggedIn: boolean;
@@ -7,6 +8,7 @@ export interface IAuthServiceContext {
   }
 
   export const DefaultIAuthServiceContext = {
+    role:null,
     accessToken: '',
     loading: false,
     isLoggedIn: false,

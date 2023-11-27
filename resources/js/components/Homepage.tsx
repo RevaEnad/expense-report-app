@@ -297,8 +297,11 @@ function App() {
                                         {row.date}
                                     </TableCell>
                                     <TableCell align="center">
-                    <Chip label={row.status} color="success" />
-                  </TableCell>
+                                    <Chip
+                                        label={row.status}
+                                        color={row.status === 'pending' ? 'warning' : 'success'}
+                                    />
+                                    </TableCell>
                                     <TableCell align="center">
                                         {row.amount}
                                     </TableCell>

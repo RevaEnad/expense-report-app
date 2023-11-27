@@ -5,6 +5,7 @@ import {Post} from '../services/Api/index';
 import { access } from 'fs';
 
 const useServiceAuth = () => {
+  const [role, setRole] = useState<string|null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [accessToken, setAccessToken] = useState<string|null>(null);
 
@@ -17,6 +18,7 @@ const useServiceAuth = () => {
       const res = await request({ data: { email, password } });
       if (res.status === 200) {
         setAccessToken(res.data.access_token);
+        setRole(res.data.role);
         return res;
       }
     } catch (err: any) {
@@ -50,6 +52,7 @@ const useServiceAuth = () => {
 
 
   return {
+    role,
     accessToken,
     loading,
     isLoggedIn,

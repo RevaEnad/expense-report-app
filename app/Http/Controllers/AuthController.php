@@ -36,7 +36,8 @@ class AuthController extends Controller
             $user->access_token = $user->createToken('access_token')->plainTextToken;
 
             return response()->json([
-                'access_token' => $user->access_token,
+                'role' => $user->roles->first()->name,
+                'access_toke    n' => $user->access_token,
                 'token_type' => 'Bearer',
             ]);
         } else {
@@ -44,6 +45,7 @@ class AuthController extends Controller
                 'errors' => ['incorrect' => [__('message.login_failed')]],
             ]);
         }
+
     }
 
     public function logout()
