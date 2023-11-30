@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class AuthController extends Controller
         return User::create($request->all());
     }
 
-    public function login(AuthRequest $request): JsonResponse
+    public function login(LoginRequest$request): JsonResponse
     {
         $credentials = $request->validated();
         $user = null;
@@ -37,13 +38,13 @@ class AuthController extends Controller
 
             return response()->json([
                 'role' => $user->roles->first()->name,
-                'access_toke    n' => $user->access_token,
+                'access_token' => $user->access_token,
                 'token_type' => 'Bearer',
             ]);
         } else {
             return response()->json([
-                'errors' => ['incorrect' => [__('message.login_failed')]],
-            ]);
+                "errors" => ["Invalid Credentials"]
+            ], 500);
         }
 
     }

@@ -18,6 +18,7 @@ php artisan key:generate --ansi
 if [ $skip_migrations != 'true' ]; then
     # Run migrations
     php artisan migrate
+    php artisan db:seed
 fi
 
 # Run bitnami laravel setup
@@ -25,3 +26,8 @@ fi
 . /opt/bitnami/scripts/laravel/setup.sh
 . /post-init.sh
 . /opt/bitnami/scripts/laravel/run.sh
+
+npm run dev
+# composer update
+# Run Laravel development server
+php artisan serve --host=0.0.0.0 

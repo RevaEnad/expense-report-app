@@ -7,6 +7,9 @@ RUN apt-get install -y nodejs
 
 # Set the working directory in the container
 WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+COPY vite.config.ts .
 
 # Copy the entire Laravel project (including React files) into the container
 COPY . .
@@ -16,10 +19,13 @@ COPY . .
 
 # Install Node.js dependencies and build React assets
 RUN npm install
-RUN npm run build
+# RUN npm run build
+# # Copy entrypoint script
+COPY /docker/setup.sh /usr/bin/
+RUN chmod +x /usr/bin/setup.sh 
 
 # Reset bitnami script as entrypoint
-ENTRYPOINT [ "/opt/bitnami/scripts/laravel/entrypoint.sh" ]
+ENTRYPOINT [ "docker/setup.sh" ]
 
 # Run the Laravel server or any other commands needed
-CMD ["php", "artisan", "serve", "--host=0.0.0.0"]
+# CMD ["php", "artisan", "serve", "--host=0.0.0.0"]

@@ -10,6 +10,8 @@ import {
     TableBody,
     Table,
     Chip,
+    TableHead,
+    Button,
 } from "@mui/material";
 import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 import useExpenseState from "../hooks/states/useExpenseState";
@@ -73,6 +75,8 @@ function AdminPage() {
         }
     };
 
+    
+
 
     const handleModalClose = () => {
         setEditIndex(-1);
@@ -95,7 +99,46 @@ function AdminPage() {
                     sx={{ width: "85%", margin: "auto" }}
                 >
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                       
+                        <TableHead>
+                            <TableRow>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    NAME
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    ISSUER
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    DATE
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    STATUS
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    AMOUNT
+                                </TableCell>
+                                <TableCell
+                                    align="center"
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    ACTION
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
                         <TableBody>
                             {expenses.map((row, index) => (
                                 <TableRow
@@ -125,15 +168,22 @@ function AdminPage() {
                                         color={row.status === 'pending' ? 'warning' : 'success'}
                                     />
                                     </TableCell>
-
                                     <TableCell align="center">
                                         {row.amount}
-                                    </TableCell>
-                                    <IconButton
+                                        </TableCell>
+                                    <TableCell align="center">
+                                    <Button
                                         aria-label="delete"
-                                        onClick={() => handleDelete(row.id)}
+                                        variant="contained"
+                                        color="success"
+                                        size="medium"
+                                        // onClick={() => handleAccept(row.id)}
+                                        sx={{}}
                                     >
-                                    </IconButton>
+                                    Accept
+                                    </Button>
+                                    </TableCell>
+                                   
                                 </TableRow>
                             ))}
                         </TableBody>

@@ -25,7 +25,6 @@ export default (method: string, path: string, params?: any, data?: any) => {
       // Set custom headers
       headers.set('Accept', 'application/json');
       headers.set('Authorization', `Bearer ${accessToken}`);
-      console.log(accessToken)
 
       axiosConfig.withCredentials = true;
 

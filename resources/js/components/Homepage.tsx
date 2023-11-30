@@ -19,7 +19,7 @@ import {
     TableBody,
     Table,
     Box,
-    Chip,
+    Chip
 } from "@mui/material";
 import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 import useExpenseState from "../hooks/states/useExpenseState";
@@ -145,7 +145,7 @@ function App() {
                     color="white"
                     sx={{ paddingTop: 3, marginLeft: 18 }}
                 >
-                    Add Expense
+                    Add Expenses
                 </Typography>
                 <Grid
                     container
@@ -196,6 +196,7 @@ function App() {
                             size="small"
                             label="Date"
                             name="date"
+                            type="date"
                             value={inputValues.date}
                             onChange={handleInputChange}
                             InputProps={{

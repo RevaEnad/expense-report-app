@@ -12,6 +12,8 @@ services:
             - '${VITE_PORT:-5174}:${VITE_PORT:-5174}'
         volumes:
             - './:/app'
+            - /app/node_modules
+            - /app/vendor
         environment:
             DB_HOST: '${DB_HOST:-localhost}'
             DB_PORT: '${DB_PORT:-3306}'

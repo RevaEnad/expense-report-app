@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 import "../../css/app.css";
 import { useServiceAuthContext } from "../hooks/context/AuthServiceContext";
 
@@ -14,6 +16,13 @@ function App() {
   });
   const { handleAuth } = useServiceAuthContext();
 
+  const [errors, setErrors] = useState({
+    email: null,
+    password: null,
+  });
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,10 +31,23 @@ function App() {
     }));
   };
 
-  const handleLogin = useCallback(async (e: any) => {
+  const handleLogin = useCallback(async (e:any) => {
     e.preventDefault();
-    await handleAuth(formData.email, formData.password);
-  }, [formData]);
+    const response = await handleAuth(formData.email, formData.password);
+    if (response.data && response.data.errors) {
+      setErrors(response.data.errors);
+      setSnackbarOpen(true);
+    } else {
+      setErrors({
+        email: null,
+        password: null,
+      });
+    }
+  }, [formData, setErrors]);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   return (
     <div className="App">
@@ -68,6 +90,8 @@ function App() {
                 autoComplete="email"
                 autoFocus
                 onChange={handleInputChange}
+                error={errors.email !== null}
+                helperText={errors.email}
                 InputProps={{
                   style: { borderRadius: 20 },
                 }}
@@ -82,6 +106,8 @@ function App() {
                 id="password"
                 autoComplete="current-password"
                 onChange={handleInputChange}
+                error={errors.password !== null}
+                helperText={errors.password}
                 InputProps={{
                   style: { borderRadius: 20 },
                 }}
@@ -98,6 +124,20 @@ function App() {
             </Box>
           </Box>
         </Container>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+        >
+          <MuiAlert
+            elevation={6}
+            variant="filled"
+            severity="error"
+            onClose={handleSnackbarClose}
+          >
+            {errors.email || errors.password}
+          </MuiAlert>
+        </Snackbar>
       </header>
     </div>
   );
